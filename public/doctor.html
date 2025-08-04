@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QueueWise - Doctor Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00796b;
+      --primary-light: #b2dfdb;
+      --secondary: #004d40;
+      --text: #333333;
+      --text-light: #666666;
+      --bg: #f5f5f5;
+      --card-bg: #ffffff;
+      --urgent: #c62828;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+    
+    .dashboard-header {
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem 0;
+    }
+    
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom: 1.5rem;
+    }
+    
+    .badge-urgent {
+      background-color: var(--urgent);
+      color: white;
+    }
+    
+    .patient-card {
+      border-left: 4px solid var(--primary);
+      transition: all 0.2s;
+    }
+    
+    .patient-card.urgent {
+      border-left-color: var(--urgent);
+    }
+    
+    .btn-action {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .btn-action:hover {
+      background-color: var(--secondary);
+    }
+    
+    .nav-tabs .nav-link.active {
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+    }
+    
+    .status-badge {
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    
+    .status-waiting {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+    
+    .status-in-progress {
+      background-color: #cce5ff;
+      color: #004085;
+    }
+    
+    .status-completed {
+      background-color: #d4edda;
+      color: #155724;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="dashboard-header">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="h4 mb-0">QueueWise Doctor Portal</h1>
+        <div>
+          <span class="me-3">Dr. Ndlovu</span>
+          <a href="login.html" class="text-white"><i class="bi bi-box-arrow-right"></i> Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container my-4">
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h6 class="text-muted">Today's Appointments</h6>
+                <h3 id="totalAppointments">18</h3>
+              </div>
+              <div class="bg-primary bg-opacity-10 p-3 rounded">
+                <i class="bi bi-calendar-check text-primary fs-4"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h6 class="text-muted">Waiting Now</h6>
+                <h3 id="waitingPatients">5</h3>
+              </div>
+              <div class="bg-warning bg-opacity-10 p-3 rounded">
+                <i class="bi bi-hourglass-split text-warning fs-4"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h6 class="text-muted">Avg. Consultation</h6>
+                <h3 id="avgConsultation">15 min</h3>
+              </div>
+              <div class="bg-info bg-opacity-10 p-3 rounded">
+                <i class="bi bi-clock-history text-info fs-4"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Appointments Table -->
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0"><i class="bi bi-list-task me-2"></i>Today's Appointments</h5>
+        <div class="btn-group">
+          <button class="btn btn-outline-secondary btn-sm active" data-filter="all">All</button>
+          <button class="btn btn-outline-secondary btn-sm" data-filter="waiting">Waiting</button>
+          <button class="btn btn-outline-secondary btn-sm" data-filter="completed">Completed</button>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Patient</th>
+                <th>ID Number</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="appointmentsTable">
+              <!-- Dynamic content will be inserted here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="card mt-4">
+      <div class="card-header">
+        <h5 class="mb-0"><i class="bi bi-lightning me-2"></i>Quick Actions</h5>
+      </div>
+      <div class="card-body">
+        <div class="d-flex flex-wrap gap-2">
+          <button class="btn btn-action">
+            <i class="bi bi-plus-circle"></i> Add Walk-In
+          </button>
+          <button class="btn btn-action">
+            <i class="bi bi-printer"></i> Print List
+          </button>
+          <button class="btn btn-action">
+            <i class="bi bi-arrow-repeat"></i> Refresh
+          </button>
+          <button class="btn btn-outline-danger">
+            <i class="bi bi-exclamation-triangle"></i> Emergency
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Consultation Modal -->
+  <div class="modal fade" id="consultationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalPatientName">Patient Consultation</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h6>Patient Details</h6>
+              <ul class="list-group list-group-flush mb-3">
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Age:</span>
+                  <span id="modalPatientAge">42</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Gender:</span>
+                  <span id="modalPatientGender">Male</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Last Visit:</span>
+                  <span id="modalPatientLastVisit">12 Jun 2025</span>
+                </li>
+              </ul>
+              
+              <h6>Medical History</h6>
+              <div class="card card-body bg-light mb-3">
+                <small id="modalPatientHistory">Hypertension, Type 2 Diabetes</small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <h6>Consultation Notes</h6>
+              <textarea class="form-control mb-3" rows="8" placeholder="Enter consultation notes..."></textarea>
+              <div class="d-flex gap-2">
+                <button class="btn btn-action flex-grow-1">
+                  <i class="bi bi-check-circle"></i> Complete
+                </button>
+                <button class="btn btn-outline-secondary">
+                  <i class="bi bi-prescription"></i> Prescribe
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Sample data - replace with API calls in real implementation
+    const appointments = [
+      {
+        id: 105,
+        time: "10:30 AM",
+        name: "Thabo Mokoena",
+        idNumber: "8901234567890",
+        reason: "Chronic Medication",
+        status: "waiting",
+        age: 42,
+        gender: "Male",
+        history: "Hypertension, Type 2 Diabetes",
+        urgent: false
+      },
+      {
+        id: 106,
+        time: "10:45 AM",
+        name: "Sarah Johnson",
+        idNumber: "9001234567890",
+        reason: "Prenatal Checkup",
+        status: "waiting",
+        age: 28,
+        gender: "Female",
+        history: "First pregnancy",
+        urgent: true
+      },
+      {
+        id: 107,
+        time: "11:15 AM",
+        name: "James Wilson",
+        idNumber: "8801234567890",
+        reason: "Flu Symptoms",
+        status: "in-progress",
+        age: 35,
+        gender: "Male",
+        history: "None",
+        urgent: false
+      },
+      {
+        id: 108,
+        time: "11:30 AM",
+        name: "Nomvula Khumalo",
+        idNumber: "9101234567890",
+        reason: "Vaccination",
+        status: "completed",
+        age: 24,
+        gender: "Female",
+        history: "None",
+        urgent: false
+      }
+    ];
+
+    // Initialize dashboard
+    document.addEventListener('DOMContentLoaded', function() {
+      renderAppointments();
+      updateStats();
+      
+      // Filter buttons
+      document.querySelectorAll('[data-filter]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelector('[data-filter].active').classList.remove('active');
+          this.classList.add('active');
+          renderAppointments(this.dataset.filter);
+        });
+      });
+    });
+
+    function renderAppointments(filter = 'all') {
+      const tbody = document.getElementById('appointmentsTable');
+      tbody.innerHTML = '';
+      
+      const filtered = filter === 'all' 
+        ? appointments 
+        : appointments.filter(a => a.status === filter);
+      
+      filtered.forEach(app => {
+        const row = document.createElement('tr');
+        row.className = `patient-card ${app.urgent ? 'urgent' : ''}`;
+        
+        row.innerHTML = `
+          <td>${app.time}</td>
+          <td>
+            <strong>${app.name}</strong>
+            ${app.urgent ? '<span class="badge badge-urgent ms-2">URGENT</span>' : ''}
+          </td>
+          <td>${app.idNumber}</td>
+          <td>${app.reason}</td>
+          <td>
+            <span class="status-badge status-${app.status.replace('-', '')}">
+              ${app.status.replace('-', ' ').toUpperCase()}
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-outline-primary start-consultation" data-id="${app.id}">
+              <i class="bi bi-clipboard-pulse"></i> Start
+            </button>
+          </td>
+        `;
+        
+        tbody.appendChild(row);
+      });
+      
+      // Add event listeners to consultation buttons
+      document.querySelectorAll('.start-consultation').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const appId = parseInt(this.dataset.id);
+          const appointment = appointments.find(a => a.id === appId);
+          openConsultationModal(appointment);
+        });
+      });
+    }
+
+    function openConsultationModal(appointment) {
+      document.getElementById('modalPatientName').textContent = 
+        `${appointment.name} - ${appointment.reason}`;
+      document.getElementById('modalPatientAge').textContent = appointment.age;
+      document.getElementById('modalPatientGender').textContent = appointment.gender;
+      document.getElementById('modalPatientLastVisit').textContent = '12 Jun 2025'; // Would be dynamic
+      document.getElementById('modalPatientHistory').textContent = appointment.history;
+      
+      const modal = new bootstrap.Modal(document.getElementById('consultationModal'));
+      modal.show();
+    }
+
+    function updateStats() {
+      document.getElementById('totalAppointments').textContent = appointments.length;
+      document.getElementById('waitingPatients').textContent = 
+        appointments.filter(a => a.status === 'waiting').length;
+    }
+  </script>
+</body>
+</html>

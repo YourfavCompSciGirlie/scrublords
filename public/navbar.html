@@ -1,0 +1,219 @@
+<!-- navbar.html -->
+<style>
+  /* Navbar Core Styles */
+  .qw-navbar {
+    background-color: #00796b !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .qw-navbar .navbar-brand {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: white !important;
+    display: flex;
+    align-items: center;
+  }
+  
+  .qw-navbar .navbar-brand i {
+    margin-right: 8px;
+    font-size: 1.4rem;
+  }
+  
+  .qw-navbar .nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    margin: 0 2px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  
+  .qw-navbar .nav-link i {
+    margin-right: 6px;
+    font-size: 1.1rem;
+  }
+  
+  .qw-navbar .nav-link:hover,
+  .qw-navbar .nav-link:focus {
+    color: white !important;
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  .qw-navbar .nav-link.active {
+    color: white !important;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Dropdown Styles */
+  .qw-navbar .dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    padding: 0.5rem;
+    margin-top: 8px;
+  }
+  
+  .qw-navbar .dropdown-item {
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    color: #333;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+  }
+  
+  .qw-navbar .dropdown-item i {
+    margin-right: 8px;
+    color: #00796b;
+  }
+  
+  .qw-navbar .dropdown-item:hover,
+  .qw-navbar .dropdown-item:focus {
+    background-color: #e0f2f1;
+    color: #004d40;
+  }
+  
+  /* Mobile Menu Styles */
+  .qw-navbar .navbar-toggler {
+    border: none;
+    padding: 0.5rem;
+  }
+  
+  .qw-navbar .navbar-toggler:focus {
+    box-shadow: none;
+  }
+  
+  .qw-navbar .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255, 255, 255, 0.85)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 991.98px) {
+    .qw-navbar .navbar-collapse {
+      padding: 1rem 0;
+    }
+    
+    .qw-navbar .nav-link {
+      padding: 0.75rem 1rem;
+      margin: 2px 0;
+    }
+    
+    .qw-navbar .dropdown-menu {
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      background-color: rgba(0, 121, 107, 0.95);
+    }
+    
+    .qw-navbar .dropdown-item {
+      color: rgba(255, 255, 255, 0.85);
+      padding: 0.75rem 1.5rem;
+    }
+    
+    .qw-navbar .dropdown-item i {
+      color: rgba(255, 255, 255, 0.85);
+    }
+    
+    .qw-navbar .dropdown-item:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg qw-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <i class="bi bi-activity"></i> QueueWise
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">
+            <i class="bi bi-house-door"></i> Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="booking.html">
+            <i class="bi bi-calendar-plus"></i> Book
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="checkin.html">
+            <i class="bi bi-geo-alt"></i> Check In
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="display.html">
+            <i class="bi bi-tv"></i> Queue
+          </a>
+        </li>
+      </ul>
+      
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            <i class="bi bi-person-circle"></i> Account
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="patient.html">
+              <i class="bi bi-person"></i> Profile
+            </a></li>
+            <li><a class="dropdown-item" href="admin.html">
+              <i class="bi bi-shield-lock"></i> Admin
+            </a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="login.html" id="loginLink">
+              <i class="bi bi-box-arrow-in-right"></i> Login
+            </a></li>
+            <li><a class="dropdown-item" href="register.html" id="registerLink">
+              <i class="bi bi-person-plus"></i> Register
+            </a></li>
+            <li><a class="dropdown-item d-none" href="#" id="logoutBtn">
+              <i class="bi bi-box-arrow-left"></i> Logout
+            </a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Auth state management
+  document.addEventListener('DOMContentLoaded', function() {
+    // Check auth status (simulated)
+    const isLoggedIn = localStorage.getItem('qw-auth-token');
+    const loginLink = document.getElementById('loginLink');
+    const registerLink = document.getElementById('registerLink');
+    const logoutBtn = document.getElementById('logoutBtn');
+    
+    if (isLoggedIn) {
+      loginLink.classList.add('d-none');
+      registerLink.classList.add('d-none');
+      logoutBtn.classList.remove('d-none');
+    }
+    
+    // Logout handler
+    logoutBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      localStorage.removeItem('qw-auth-token');
+      window.location.href = 'index.html';
+    });
+    
+    // Highlight active page
+    const currentPage = window.location.pathname.split('/').pop();
+    document.querySelectorAll('.nav-link').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
