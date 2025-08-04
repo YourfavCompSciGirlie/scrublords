@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "Style.css">
+    <title>Queue Wise Smart Appointments</title>
+</head>
+<body>
+    <header>
+        <h1>Queue Wise</h1>
+        <p id="tagline">Smarter Appointments for PHC Clinics in Tshwane</p>
+        <select id="language-selector">
+            <option value="en">English</option>
+            <option value="zu">isiZulu</option>
+            <option value="nso">Sepedi</option>
+        </select>
+    </header>
+
+    <main>
+        <section class="intro" data-i18n="intro">
+            <h2>Problem Statement</h2>
+            <p>PHC clinics in Tshwane face daily overcrowding due to inefficient appointment systems...</p>
+        </section>
+
+        <section class="solution" data-i18n="solution">
+            <h2>Our Solution</h2>
+            <p>Queue Wise is a hybrid digital system that allows patients to book appointments via SMS or web form</p>
+        </section>
+
+        <section class="sms-demo">
+            <h2>SMS Booking Demo</h2>
+            <p>Send an SMS to <strong>‪+27 60 123 4567‬</strong> with:</p>
+            <pre>BOOK [Your Name] [Clinic Name] [Preferred Date]</pre>
+            <p>Example: <code>BOOK Thabo MamelodiClinic 2025-08-01</code></p>
+        </section>
+
+        <section class="contact">
+            <h2>Contact Us</h2>
+            <form id="contact-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Queue Wise | Made with love in Tshwane, by Tshwane</p>
+    </footer>
+
+    <script src="javascript.js"></script>
+</body>
+</html>
