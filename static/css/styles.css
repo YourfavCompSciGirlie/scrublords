@@ -1,0 +1,38 @@
+:root {
+  --primary: #005b96;
+  --accent: #007bc7;
+  --text: #333;
+  --bg: #f9f9f9;
+  --ok: #27ae60;
+  --warn: #f1c40f;
+  --bad: #e74c3c;
+  --font: 'Helvetica Neue', Arial, sans-serif;
+}
+* { box-sizing: border-box; margin:0; padding:0; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+}
+header, .auth-container, .card {
+  background: #fff; border-radius:8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin: 1rem auto; max-width: 500px; padding:1rem;
+}
+h1, h2, h3 { color: var(--primary); margin-bottom: .5rem; }
+button {
+  background: var(--accent); color:#fff; border:none;
+  padding:.6rem 1rem; border-radius:4px; cursor:pointer;
+}
+input, select, textarea {
+  width:100%; padding:.5rem; margin:.5rem 0; border:1px solid #ccc; border-radius:4px;
+}
+.hidden { display:none; }
+table { width:100%; border-collapse:collapse; }
+th, td { border:1px solid #ddd; padding:.5rem; text-align:center; }
+.status-waiting { background: var(--warn); color:#fff; padding:0 .4rem; border-radius:4px; }
+.status-in-service { background: var(--accent); color:#fff; padding:0 .4rem; border-radius:4px; }
+.status-completed { background: var(--ok); color:#fff; padding:0 .4rem; border-radius:4px; }
+@media (max-width:600px){
+  header, .auth-container, .card { margin:0.5rem; }
+  th, td { font-size:.8rem; padding:.3rem; }
+}

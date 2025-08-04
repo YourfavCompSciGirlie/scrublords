@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QueueWise – Login</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="auth-container">
+    <h1>QueueWise</h1>
+    <form id="loginForm">
+      <h2>Login</h2>
+      <input id="loginPhone" type="tel" placeholder="Phone" required>
+      <button>Login</button>
+    </form>
+
+    <form id="signupForm" class="hidden">
+      <h2>Sign Up</h2>
+      <input id="signupName" type="text" placeholder="Full Name" required>
+      <input id="signupPhone" type="tel" placeholder="Phone" required>
+      <button>Sign Up</button>
+    </form>
+
+    <p id="toggleAuth">
+      Don’t have an account? <a href="#">Sign Up</a>
+    </p>
+  </div>
+
+  <script src="/static/js/auth.js"></script>
+</body>
+</html>

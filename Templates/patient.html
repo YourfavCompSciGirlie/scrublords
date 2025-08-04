@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QueueWise – Patient</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <header class="card">
+    <h1>Welcome, <span id="userName"></span></h1>
+    <button id="logoutBtn">Logout</button>
+  </header>
+
+  <main>
+    <!-- AI Slot Advisor -->
+    <div class="card">
+      <h2>AI Slot Advisor</h2>
+      <button id="aiSuggest">Suggest Best Time</button>
+      <p id="suggestion"></p>
+    </div>
+
+    <!-- Booking -->
+    <div class="card">
+      <h2>Book Appointment</h2>
+      <form id="bookForm">
+        <select id="clinic">
+          <option>Central PHC Tshwane</option>
+          <option>Eastside Clinic</option>
+        </select>
+        <textarea id="reason" rows="2" placeholder="Reason" required></textarea>
+        <div id="timeslots" style="display:flex;flex-wrap:wrap;gap:.5rem;"></div>
+        <button>Confirm</button>
+      </form>
+    </div>
+
+    <!-- Token & Queue Tracker -->
+    <div id="afterBook" class="card hidden">
+      <h2>Your Token & Queue</h2>
+      <img id="qrImg" alt="QR Token" style="width:120px;height:120px;">
+      <p>Code: <strong id="tokenCode"></strong></p>
+      <p id="position"></p>
+      <p id="eta"></p>
+    </div>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/static/js/patient.js"></script>
+</body>
+</html>

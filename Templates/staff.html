@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QueueWise – Staff</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <header class="card">
+    <h1>Staff Dashboard</h1>
+    <button id="logoutBtn">Logout</button>
+  </header>
+
+  <!-- Forecast & Alerts -->
+  <section class="card">
+    <h2>Forecast & Alerts</h2>
+    <p id="forecastAlert"></p>
+    <p id="forecastSuggest"></p>
+  </section>
+
+  <!-- Live Queue -->
+  <section class="card">
+    <h2>Live Queue</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th><th>Code</th><th>Time</th><th>Priority</th><th>Status</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="queueTbody"></tbody>
+    </table>
+  </section>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/static/js/staff.js"></script>
+</html>
