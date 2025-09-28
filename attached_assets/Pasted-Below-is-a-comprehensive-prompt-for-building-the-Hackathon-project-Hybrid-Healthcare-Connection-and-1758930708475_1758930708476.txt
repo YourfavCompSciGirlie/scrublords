@@ -1,0 +1,182 @@
+Below is a comprehensive prompt for building the Hackathon project (Hybrid Healthcare Connection and Data Management Platform) using *Replit, incorporating **Shadcn/UI* for a modern, accessible UI, and emphasizing *security considerations*. The prompt is tailored for Hackathon participants, providing clear guidance on setup, features, and best practices to create a functional prototype within a short timeframe.
+
+---
+
+# Hackathon Project Prompt: Hybrid Healthcare Connection and Data Management Platform
+
+## Objective
+Build a Minimum Viable Product (MVP) for a web-based platform that connects young and experienced healthcare professionals and streamlines patient data management in South Africa’s public healthcare system. The prototype must be developed in *Replit, using **Shadcn/UI* for the frontend, and incorporate *security best practices* to protect sensitive data. The solution should work in low-connectivity environments and demonstrate core functionality for a Hackathon presentation.
+
+## Project Context
+South Africa’s public healthcare system faces inefficiencies:
+- *Workforce*: Young nurses/doctors seek job/practical opportunities, while experienced doctors are reluctant to travel for volunteering, missing mentorship potential.
+- *Data Management*: Poor patient records, unsynchronized hospital data, and weak internet connectivity cause repetitive tasks and reduced productivity.
+The prototype must address these by connecting professionals and enabling offline-capable patient data management.
+
+## Technology Stack
+- *Environment*: Replit (cloud-based IDE for rapid development and demo).
+- *Frontend: React with **Shadcn/UI* (accessible, customizable UI components).
+- *Backend*: Node.js with Express.js for API handling.
+- *Database*: SQLite (lightweight, supports offline storage) for local data; Firebase (optional) for cloud sync demo.
+- *Offline Support*: LocalStorage or IndexedDB for offline data persistence.
+- *Security*: Basic encryption and authentication libraries (e.g., bcrypt, JWT).
+- *Dependencies*: Managed via npm in Replit.
+
+## Core Features and User Stories
+### 1. Workforce Connection Module
+- *User Registration*:
+  - Story: As a young nurse/doctor or experienced doctor, I want to create a profile with my qualifications, location, and availability, so that I can be matched with opportunities.
+  - Implementation: Form with fields (name, role, qualifications, location, availability, remote/in-person preference) using Shadcn/UI <Input> and <Select> components.
+- *Opportunity Matching*:
+  - Story: As a young nurse/doctor, I want to view matched job/practical opportunities; as an experienced doctor, I want to see mentorship/volunteer opportunities.
+  - Implementation: Simple algorithm (e.g., filter by role/location) to display matches in a Shadcn/UI <Table> or <Card> list.
+- *Communication Tool*:
+  - Story: As a healthcare professional, I want to send/receive messages to arrange mentorship or confirm opportunities.
+  - Implementation: Basic chat interface using Shadcn/UI <Textarea> and <Button>; store messages in SQLite.
+- *Volunteer Incentives*:
+  - Story: As an experienced doctor, I want to see remote volunteering options to contribute without travel.
+  - Implementation: Toggle for remote/in-person preferences in profile form; highlight remote opportunities in match list.
+
+### 2. Patient Data Management Module
+- *Patient Record Creation*:
+  - Story: As a nurse/doctor, I want to create patient records (name, ID, medical history, condition) offline.
+  - Implementation: Form with Shadcn/UI <Input> and <Textarea>; store in SQLite or LocalStorage.
+- *Data Access*:
+  - Story: As a nurse/doctor, I want to search patient records by ID/name securely.
+  - Implementation: Search bar with Shadcn/UI <Input>; display results in <Table>; restrict access via role-based checks.
+- *Offline Sync*:
+  - Story: As a nurse/doctor, I want to save records offline and sync when online.
+  - Implementation: Use LocalStorage/IndexedDB for offline storage; sync to SQLite or Firebase when connected (show sync status with Shadcn/UI <Badge>).
+- *Basic EHR Template*:
+  - Story: As a nurse/doctor, I want a standardized template for diagnoses/treatments.
+  - Implementation: Predefined fields in record creation form using Shadcn/UI <Form> components.
+
+### 3. System Features
+- *Mobile-Friendly Interface*:
+  - Story: As a healthcare professional, I want a smartphone-accessible interface.
+  - Implementation: Use Shadcn/UI’s responsive components (e.g., <Card>, <Dialog>) with Tailwind CSS for mobile optimization.
+- *Offline Functionality*:
+  - Story: As a healthcare professional, I want to use core features offline.
+  - Implementation: Cache data in LocalStorage/IndexedDB; use service workers (if time permits) for offline UI access.
+- *Dashboard*:
+  - Story: As an administrator, I want a dashboard showing users, matches, and records.
+  - Implementation: Simple dashboard with Shadcn/UI <Card> and <Table> showing counts (e.g., “10 users registered”).
+
+## Security Considerations
+- *Authentication*:
+  - Implement basic user login with username/password using *bcrypt* for password hashing and *JWT* for session management.
+  - Restrict access to patient data based on user role (e.g., nurse, doctor, admin).
+- *Data Encryption*:
+  - Encrypt sensitive data (e.g., patient records) in SQLite using *SQLCipher* or at-rest encryption libraries.
+  - Use HTTPS for API calls (Replit provides HTTPS by default).
+- *Input Validation*:
+  - Sanitize all user inputs (e.g., forms, search queries) to prevent SQL injection and XSS attacks using libraries like express-validator.
+- *Data Privacy*:
+  - Comply with South Africa’s POPIA by anonymizing demo data and avoiding real patient information.
+  - Limit data access to authorized users via role-based checks.
+- *Secure Storage*:
+  - Store sensitive data (e.g., patient IDs) in encrypted format in LocalStorage/IndexedDB.
+  - Avoid hardcoding secrets (e.g., API keys); use Replit’s environment variables (.env).
+- *Audit Logging* (if time permits):
+  - Log access to patient records (e.g., “User X viewed record Y”) in SQLite for accountability.
+
+## Replit Setup Instructions
+1. *Create a Replit Project*:
+   - Start a new Replit project with Node.js template.
+   - Initialize a Git repository for version control within Replit.
+2. *Install Dependencies*:
+   bash
+   npm init -y
+   npm install express sqlite3 bcrypt jsonwebtoken express-validator react react-dom tailwindcss
+   
+   - Install Shadcn/UI via CLI (if supported in Replit) or manually copy components:
+     bash
+     npx shadcn-ui@latest init
+     
+     - Select Tailwind CSS, React, and components like <Input>, <Button>, <Table>, <Card>, <Form>, <Badge>.
+3. *Project Structure*:
+   
+   /project
+   ├── /client
+   │   ├── /src
+   │   │   ├── /components (Shadcn/UI components, e.g., UserForm.jsx, PatientRecord.jsx)
+   │   │   ├── App.jsx (Main React app)
+   │   │   ├── index.js (React entry point)
+   │   ├── tailwind.config.js (Tailwind CSS config)
+   ├── /server
+   │   ├── /routes (API endpoints, e.g., users.js, patients.js)
+   │   ├── /db (SQLite setup, e.g., database.js)
+   │   ├── server.js (Express server)
+   ├── .env (Store secrets, e.g., JWT_SECRET)
+   ├── package.json
+   
+4. *Database Setup*:
+   - Initialize SQLite: const sqlite3 = require('sqlite3').verbose();
+   - Create tables for users (id, name, role, qualifications, etc.) and patients (id, name, medical_history, etc.).
+   - Optionally, set up Firebase for cloud sync demo (use Replit’s environment variables for Firebase keys).
+5. *Run the App*:
+   - Start the backend: node server/server.js.
+   - Start the frontend: npm start (for React).
+   - Use Replit’s split-screen to preview the app.
+
+## Development Guidelines
+- *Frontend*:
+  - Use Shadcn/UI components for consistency and accessibility (e.g., <Button> for actions, <Form> for inputs).
+  - Apply Tailwind CSS for responsive design (e.g., sm:, md: breakpoints for mobile).
+  - Implement offline UI with local state management (e.g., React’s useState for temporary data).
+- *Backend*:
+  - Create REST API endpoints (e.g., /api/users/register, /api/patients/create).
+  - Use Express middleware for input validation and authentication.
+  - Implement offline sync logic (e.g., queue data in LocalStorage, sync via API when online).
+- *Security*:
+  - Validate all inputs (e.g., express-validator for API requests).
+  - Hash passwords with bcrypt; use JWT for session tokens.
+  - Encrypt patient data in SQLite with SQLCipher or basic AES encryption.
+  - Use Replit’s .env for sensitive keys (e.g., JWT_SECRET=your-secret-here).
+- *Offline Support*:
+  - Store data in LocalStorage/IndexedDB for offline use.
+  - Implement a “Sync” button to trigger data upload when online (use Shadcn/UI <Button>).
+- *Testing*:
+  - Test core flows (registration, matching, record creation) in Replit’s preview.
+  - Simulate offline mode by disabling internet in browser dev tools.
+
+## Deliverables
+- *Prototype*: Functional Replit app with:
+  - User registration and opportunity matching.
+  - Patient record creation, search, and offline sync.
+  - Admin dashboard with basic metrics.
+- *Demo Scenario* (5-minute presentation):
+  - Register a nurse and doctor, show matching.
+  - Create/search a patient record offline, sync when online.
+  - Display dashboard with user/record counts.
+- *Code*: Well-organized, commented code in Replit with a README explaining setup and features.
+- *Security Demo*: Show login, role-based access, and encrypted data storage.
+
+## Success Criteria
+- *Functionality*: Core features work in Replit (registration, matching, record creation, offline sync).
+- *Usability*: Intuitive UI using Shadcn/UI, navigable in <5 minutes.
+- *Security*: Basic authentication, data encryption, and input validation implemented.
+- *Presentation*: Clear demo of workforce connection and data management impact.
+
+## Stretch Goals (if time permits)
+- Add a mock video call interface (static UI with Shadcn/UI <Dialog>).
+- Include a simple chart (e.g., user count) using Shadcn/UI and a library like Chart.js.
+- Support basic Afrikaans/Xhosa translations in UI.
+- Implement audit logging for patient record access.
+
+## Resources
+- *Replit*: https://replit.com (for development and hosting).
+- *Shadcn/UI*: https://ui.shadcn.com (component documentation).
+- *Tailwind CSS*: https://tailwindcss.com/docs (for responsive styling).
+- *SQLite*: https://www.sqlite.org/docs.html (lightweight database).
+- *Security Libraries*: bcrypt (https://www.npmjs.com/package/bcrypt), JWT (https://www.npmjs.com/package/jsonwebtoken), express-validator (https://www.npmjs.com/package/express-validator).
+
+## Notes
+- *Hackathon Timeframe*: Assume 24-48 hours; prioritize user registration, matching, and patient record creation/sync.
+- *Team Roles*: Suggested roles: Frontend (React + Shadcn/UI), Backend (Express + SQLite), Security (authentication + encryption).
+- *Replit Collaboration*: Use Replit’s multiplayer feature for team coding.
+- *Security Focus*: Ensure no real patient data is used; use dummy data to comply with POPIA.
+
+---
+
+This prompt provides a clear roadmap for Hackathon participants to build the prototype in Replit, leveraging Shadcn/UI for a polished UI and prioritizing security to protect sensitive healthcare data. Let me know if you need help refining specific sections, generating dummy data, or creating a sample README for the project!
